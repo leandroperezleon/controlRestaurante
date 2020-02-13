@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Sistema</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="StyleSheet" href="css/estilos_formulario.css" type="text/css">  	
+</head>
+<body>		
+	<div id="contenedor">		
+		<header>			
+			<h1>Login Control Almuerzo</h1>					
+		</header>
+		<section>
+			<div class="container">			
+				<div class="row d-flex flex-row justify-content-center" >
+					<div class="col-xl-5 col-md-7 col-sm-12 col-12 ">
+						<div class="modal">	 			
+							<form id="frmLogin" class="modal-content animate" name="frmLogin" method="post" action="pages/php_util/loginChequear.php">
+								<div class="imgcontainer">
+			      		    		<img src="imagen/avatar.png" alt="Avatar" class="avatar">
+			    				</div>
+			    				<div class="container">
+			    					<div class="input-group form-group">				    					
+				    					<div  class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-user"></i></span>
+										</div>
+										<input id="txtUsername" name="txtUsername" type="text" class="form-control" placeholder="Ingresar Usuario" required="required"></input>					
+									</div>
+									<div class="input-group form-group">										
+										<div  class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-key"></i></span>
+										</div>
+										<input id="txtClave" name="txtClave" type="password" class="form-control" placeholder="Ingresar Contraseña" required="required"></input>				
+									</div>
+									<!-- boton -->
+									<div class="form-group">
+										<button type="submit" name="btnIngresar" class="botonsubmit">Ingresar</button>
+									</div>								
+			    				</div>									
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</section>		
+		<footer>			
+			<h5>© 2019 - 2020 Copyright: Fernando Contreras Yánez - All rights reserved.</h5>			                        
+		</footer>				
+	</div>	
+</body>
+</html>
