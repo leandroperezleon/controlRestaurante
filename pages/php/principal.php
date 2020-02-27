@@ -1,80 +1,51 @@
 <?php
 ob_start();
-include '../php_util/parametros.php';
+require '../php_util/parametros.php';
+require '../php_util/sesion.php';
 
 session_start();
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) 
-{
-    echo "Inicia Sesion para acceder a este contenido.<br>";
-    echo "<br><a href='../../index.html'>Login</a>";
-    header(SERVIDOR.'index.html'); //redirige a la página de login si el usuario ingresa sin iniciar sesion
-    exit;
-}
-
-$now = time();
-if($now > $_SESSION['expire']) 
-{
-    session_destroy();   
-    echo "Tu sesion a expirado, <a href='../../index.html'>Inicia Sesion</a>";
-    header(SERVIDOR.'index.html');//redirige a la página de login, modifica la url a tu conveniencia
-    exit;
-}
+mValidarSesion();
+mValidarTimeOut();
 
 ob_end_flush();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Control Almuerzos</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/estilos_formulario.css" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
 
-    <div class="jumbotron text-center">
-      <h1>Bienvenido <?php echo  $_SESSION['username'];?></h1>
-      <p>Manten tu perfil actualizado</p> 
-      <a href=../php_util/logout.php><button type="button" class="btn btn-success">Cerrar Sesion</button></a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Control Restaurante</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Control restaurante, servicio catering comida oficina Guayaquil">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/main.css">     
+</head>
+
+<body>
+    
+    <div class="wrapper" >
+        <!-- menu --> 
+        <?php include ("menu.php"); ?>
+    
+    	<!-- contenido pagina  -->
+        <div id="content">
+            <!-- barra menu   -->
+            <?php include ("menu_navbar.php"); ?>            
+            
+            <!-- pagina  -->
+        </div>    
     </div>
-  
-    <div class="container">
-      <div class="row">
-      	<?php      	 
-      	 
-  	     include '../php_util/conexion.php';  	           	     
-  	     $conexion = mConectar();
-  	     if ($conexion==null || $conexion->connect_error ) {
-  	         die("La conexion fallo: " . $conexion->connect_error);
-  	     }
-  	             	     
-  	     $result = $conexion->query(" select mn.nombre_pagina,
-                                      mn.etiqueta,
-                              	      mn.ayuda_opcion
-                              	      from menu mn
-                              	      inner join menu_x_rol mnr on mn.id_menu = mnr.id_menu
-                              	      where id_empresa= ".$_SESSION['idempresa']."
-                              	      and mnr.id_rol =  ".$_SESSION['idrol']."
-                              	      and mn.estado = '1'
-                              	      order by orden") or die("Problemas en el select:".$conexion->error);
-  	     while($row = mysqli_fetch_array($result))
-  	     {
-  	         
-  	     ?>
-  	       	<div class="col-sm-3" >
-              <a href="<?php echo $row['nombre_pagina']?>"><h3><?php echo $row['etiqueta']?> </h3></a>
-              <p><?php echo $row['ayuda_opcion']?></p>
-            </div>
-  	     <?php 
-  	         
-  	     }     	     
-  	     mDesconectar($conexion);   	  
-      	
-      	?>       
-      </div>
-    </div>
+    <!-- Notificacion  -->
+    <?php include ("menu_notificacion.php"); ?>
+    
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="../../js/main.js"></script>       
 </body>
 </html>

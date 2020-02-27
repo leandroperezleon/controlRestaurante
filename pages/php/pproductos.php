@@ -25,14 +25,15 @@ ob_end_flush();
 <link rel="stylesheet" href="../../css/custom.css">
 <link rel="stylesheet" href="../../css/main.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </head>
 <body>    
     <div class="wrapper" >
         <!-- menu --> 
-        <?php include ("menu_header.php"); ?>   
+        <?php include ("menu.php"); ?>   
     
     	<!-- contenido pagina  -->
         <div id="content">
@@ -48,7 +49,7 @@ ob_end_flush();
         						<h2>Administrar <b>Productos</b></h2>
         					</div>
         					<div class="col-sm-6">
-        						<a href="#addProductoModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar nuevo producto</span></a>
+        						<a href="#addProductoModal" class="btn btn-secondary" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar nuevo producto</span></a>
         					</div>
                         </div>
                     </div>
@@ -57,7 +58,7 @@ ob_end_flush();
                             <div class="input-group col-md-12">
                                 <input type="text" class="form-control" placeholder="Buscar por nombre"  id="q" onkeyup="load(1);" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-info" type="button" onclick="load(1);">
+                                    <button class="btn btn-secondary" type="button" onclick="load(1);">
                                         <span class="fa fa-search"></span>
                                     </button>
                                 </span>

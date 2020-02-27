@@ -30,10 +30,25 @@
         $pro_estado = mysqli_real_escape_string($conexion,(strip_tags($_POST["edit_estado"],ENT_QUOTES)));
         $cli_fecha_modificacion=date("Y-m-d H:i:s");
         $cli_usuario_modificacion="fcontreras";
+        
+        $revisar = getimagesize($_FILES["idFileProducto_edit"]["tmp_name"]);
+        // addslashes para escapar cadena
+        $updateImagen=false;
+        if($revisar != false && $revisar != null){
+            $imgNombre=addslashes($_FILES['idFileProducto_edit']['name']);
+            $imgContenido = addslashes(file_get_contents($_FILES['idFileProducto_edit']['tmp_name']));
+            $imgType=addslashes($_FILES['idFileProducto_edit']['type']);
+            $updateImagen=true;
+        }       
+        
         // UPDATE data into database
-        $sql = " UPDATE productos SET nombre_producto = '".$pro_nombre_producto."',nombre_corto_producto = '".$pro_nombre_corto_producto."',precio = ".$pro_precio.", estado = '".$pro_estado."', fecha_modificacion = '".$cli_fecha_modificacion."', usuario_modificacion = '".$cli_usuario_modificacion."'
-            WHERE id_producto='".$id."' ";
-               
+        if ($updateImagen)            
+            $sql = " UPDATE productos SET nombre_producto = '".$pro_nombre_producto."',nombre_corto_producto = '".$pro_nombre_corto_producto."',imagen = '".$imgContenido."', mime = '".$imgType."', precio = ".$pro_precio.", estado = '".$pro_estado."', fecha_modificacion = '".$cli_fecha_modificacion."', usuario_modificacion = '".$cli_usuario_modificacion."'
+                WHERE id_producto='".$id."' ";
+        else 
+            $sql = " UPDATE productos SET nombre_producto = '".$pro_nombre_producto."',nombre_corto_producto = '".$pro_nombre_corto_producto."',precio = ".$pro_precio.", estado = '".$pro_estado."', fecha_modificacion = '".$cli_fecha_modificacion."', usuario_modificacion = '".$cli_usuario_modificacion."'
+                WHERE id_producto='".$id."' ";
+        
         $query = $conexion->query($sql);       
         // if product has been added successfully
         if ($query) {

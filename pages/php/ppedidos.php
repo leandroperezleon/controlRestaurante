@@ -34,7 +34,7 @@ ob_end_flush();
 <body> 
     <div class="wrapper" >
         <!-- menu --> 
-        <?php include ("menu_header.php"); ?>   
+        <?php include ("menu.php"); ?>   
     
     	<!-- Page Content  -->
         <div id="content">
@@ -59,7 +59,7 @@ ob_end_flush();
                             <div class="input-group col-md-12">
                                 <input type="date" class="form-control" id="qfd" title="fecha consulta" onchange="consultar(1);" value="<?php echo $fechaConsulta;?>"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-info" type="button" onclick="consultar(1);">
+                                    <button class="btn btn-secondary" type="button" onclick="consultar(1);">
                                         <span class="fa fa-search"></span>
                                     </button>
                                 </span>

@@ -1,5 +1,6 @@
 jQuery(function ($) {
-
+	
+	// quita o agrega clase active
 	$('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
     });

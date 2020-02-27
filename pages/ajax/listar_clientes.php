@@ -61,7 +61,7 @@ if($action == 'ajax')
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th class='text-left'>C&oacute;digo</th>
+						<th hidden="hidden" class='text-left'>C&oacute;digo</th>
 						<th class='text-left'>Nombres</th>
 						<th class='text-left'>Apellidos</th>
 						<th class='text-left'>Identificaci&oacute;n</th>
@@ -84,7 +84,7 @@ if($action == 'ajax')
 							$finales++;
 					?>	
 						<tr class="<?php echo $text_class;?>">
-							<td class='text-left'><?php echo $id_cliente;?></td>
+							<td hidden="hidden" class='text-left'><?php echo $id_cliente;?></td>
 							<td class='text-left'><?php echo $nombres;?></td>
 							<td class='text-left'><?php echo $apellidos;?></td>
 							<td class='text-left'><?php echo $identificacion;?></td>

@@ -117,7 +117,7 @@ if($action == 'ajax')
     			<table class="table table-striped table-hover">
     				<thead>
     					<tr>
-    						<th class='text-left'>C&oacute;digo Pedido</th>
+    						<th hidden="hidden" class='text-left'>C&oacute;digo Pedido</th>
         					<th class='text-left'>Nombre Cliente</th>
         					<th class='text-left'>Nombre Producto</th>
         					<th class='text-left'>Cantidad</th>        					
@@ -141,7 +141,7 @@ if($action == 'ajax')
     					?>	
     						<tr class="<?php echo $text_class;?>">
     							<td hidden class='text-left'><input name="idped[]" value="<?php echo $id_pedido;?>"/></td>                            
-    							<td class='text-left'><input name="idped2[<?php echo $id_pedido;?>]" value="<?php echo $id_pedido;?>" readonly="readonly"/></td>
+    							<td hidden="hidden" class='text-left'><input name="idped2[<?php echo $id_pedido;?>]" value="<?php echo $id_pedido;?>" readonly="readonly"/></td>
                                 <td class='text-left'><input name="nomcli[<?php echo $id_pedido;?>]" value="<?php echo $nombre_corto;?>" readonly="readonly"/></td>
                                 <td class='text-left'>
                                     <select id="mi_producto[<?php echo $id_pedido;?>]" name="mi_producto[<?php echo $id_pedido;?>]" onChange="mCambiarSeleccion(<?php echo $id_pedido;?>)">

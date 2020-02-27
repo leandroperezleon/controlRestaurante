@@ -1,7 +1,7 @@
 <div id="editProductoModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form name="edit_producto" id="edit_producto">
+			<form name="edit_producto" id="edit_producto" enctype="multipart/form-data">
 				<div class="modal-header">						
 					<h4 class="modal-title">Editar producto</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -19,7 +19,14 @@
 					<div class="form-group">
 						<label>Nombre Corto</label>
 						<input type="text" name="edit_nombre_corto_producto" maxlength="9" id="edit_nombre_corto_producto" class="form-control" required>
-					</div>				
+					</div>
+										
+					<div class="form-group">
+						<label>Imagen Producto</label>						
+						<input type="file" name="idFileProducto_edit" id="idFileProducto_edit" accept="image/*"><br>
+						<img id="edit_imagen_bd" class="img-thumbnail"></img>
+					</div>
+								
 					<div class="form-group">
 						<label>Precio</label>
 						<input type="number" name="edit_precio" id="edit_precio" class="form-control" required min="1" max="10" step="0.01">
@@ -30,8 +37,8 @@
 					</div>			
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-					<input type="submit" class="btn btn-info" value="Guardar datos">
+					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancelar">
+					<input type="submit" class="btn btn-secondary" value="Guardar datos">
 				</div>
 			</form>
 		</div>

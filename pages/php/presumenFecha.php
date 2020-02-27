@@ -55,7 +55,7 @@ $fechaFinMes= _data_last_month_day();
     
     <div class="wrapper" >
         <!-- menu --> 
-        <?php include ("menu_header.php"); ?>   
+        <?php include ("menu.php"); ?>   
     
     	<!-- Page Content  -->
         <div id="content">
@@ -87,7 +87,7 @@ $fechaFinMes= _data_last_month_day();
                                     	<input type="date" class="form-control"  placeholder="Fecha hasta"  id="qfh" title="fecha hasta" value="<?php echo $fechaFinMes;?>"/>
                                     </div>
                                     <span class="input-group-btn col-xl-2 col-lg-2 col-md-2">
-                                        <button class="btn btn-info" type="button" onclick="load(1);">
+                                        <button class="btn btn-secondary" type="button" onclick="load(1);">
                                             <span class="fa fa-search"></span>
                                         </button>
                                     </span>                     

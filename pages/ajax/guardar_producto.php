@@ -23,19 +23,35 @@
     	$pro_fechaIngreso=date("Y-m-d H:i:s");
     	$pro_usuarioIngreso="fcontreras";
     	
-	   	// REGISTER data into database    	
-        $sql = "INSERT INTO productos (nombre_producto,nombre_corto_producto,estado,precio,fecha_ingreso,usuario_ingreso)
-                 VALUES ('$pro_nombre_producto','$pro_nombre_corto_producto','$pro_estado',$pro_precio,'$pro_fechaIngreso','$pro_usuarioIngreso')";
-        $query = $conexion->query($sql);
-        // if client has been added successfully
-        if ($query) 
-        {
-            $messages[] = "El producto ha sido guardado con &eacute;xito.";           
-        }
-        else 
-        {
-            $errors[] = "Lo sentimos, el registro fall&oacute;. Por favor, regrese y vuelva a intentarlo.";
-        }
+    	$revisar = getimagesize($_FILES["idFileProducto"]["tmp_name"]);
+    	// addslashes para escapar cadena
+    	if($revisar != false && $revisar != null){
+    	    $imgNombre=addslashes($_FILES['idFileProducto']['name']);
+    	    $imgContenido = addslashes(file_get_contents($_FILES['idFileProducto']['tmp_name']));
+    	    $imgType=addslashes($_FILES['idFileProducto']['type']);
+    	} 
+    	else{    
+    	    $imgContenido ="";
+    	    $errors[] = "Lo sentimos, debe cargar una imagen de producto.";
+    	}
+    	
+    	    
+    	if (!isset($errors))
+    	{
+    	    // REGISTER data into database
+    	    $sql = "INSERT INTO productos (nombre_producto,nombre_corto_producto,estado,precio,fecha_ingreso,usuario_ingreso,imagen,mime)
+                 VALUES ('$pro_nombre_producto','$pro_nombre_corto_producto','$pro_estado',$pro_precio,'$pro_fechaIngreso','$pro_usuarioIngreso','$imgContenido','$imgType')";
+    	    $query = $conexion->query($sql);
+    	    // if client has been added successfully
+    	    if ($query)
+    	    {
+    	        $messages[] = "El producto ha sido guardado con &eacute;xito.";
+    	    }
+    	    else
+    	    {
+    	        $errors[] = "Lo sentimos, el registro fall&oacute;. Por favor, regrese y vuelva a intentarlo.";
+    	    }    	    
+    	}   	
         
         // desconectar
         mDesconectar($conexion);

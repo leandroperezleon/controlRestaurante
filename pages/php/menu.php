@@ -1,60 +1,61 @@
-<?php
-ob_start();
-require '../php_util/parametros.php';
-require '../php_util/sesion.php';
-
-session_start();
-mValidarSesion();
-mValidarTimeOut();
-
-ob_end_flush();
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Control Parqueo</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Control almuerzo, servicio catering comida oficina Guayaquil">
-    
-    <!-- using online links -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/main.css"> 
-            
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-     
-</head>
-
-<body>
-    
-    <div class="wrapper" >
-        <!-- menu --> 
-        <?php include ("menu_header.php"); ?>   
-    
-    	<!-- contenido pagina  -->
-        <div id="content">
-            <!-- barra menu   -->
-            <?php include ("menu_navbar.php"); ?>
-            
-            <!-- pagina  -->
-        </div>    
-    </div>    
-
-    <!-- Notificacion  -->
-    <?php include ("menu_notificacion.php"); ?>
-  
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-	<script src="../../js/main.js"></script>
-       
-</body>
-</html>
+<!-- Sidebar  -->
+<nav id="sidebar" >
+    <div class="sidebar-header">
+        <h3>Control Restaurante</h3>
+        <strong>CR</strong>
+    </div>
+    <ul class="list-unstyled components">            
+        <?php     	 
+            if(!isset($_SESSION['$vectormenu']))
+            {
+                include '../php_util/conexion.php';  	           	     
+                $conexion = mConectar();
+                if ($conexion==null || $conexion->connect_error ) {
+                                die("La conexion fallo: " . $conexion->connect_error);
+                }
+                     	     
+                $result = $conexion->query(" select mn.nombre_pagina,                                  	      
+                                          mn.logo,
+                                          mn.etiqueta,
+                                          mn.contenido
+                                  	      from menu mn
+                                  	      inner join menu_x_rol mnr on mn.id_menu = mnr.id_menu
+                                  	      where id_empresa= ".$_SESSION['idempresa']."
+                                  	      and mnr.id_rol =  ".$_SESSION['idrol']."
+                                  	      and mn.estado = '1'
+                                  	      order by orden") or die("Problemas en el select:".$conexion->error);
+                while($row = mysqli_fetch_array($result))
+                {
+                    $vectormenu[] = array('nombre_pagina'=> $row['nombre_pagina'],
+                                          'logo'=> $row['logo'],
+                                          'etiqueta'=> $row['etiqueta']);
+                                     
+        ?>                    
+                    <li>
+                        <a href="<?php echo $row['nombre_pagina']?>">
+                    		<i class="<?php echo $row['logo']?>"></i>
+                    		<?php echo $row['etiqueta']?>
+                        </a>
+                    </li> 
+        <?php        
+                }   
+                $_SESSION['$vectormenu'] =$vectormenu;
+                mDesconectar($conexion);
+            }
+            else
+            {
+                foreach ($_SESSION['$vectormenu'] as $item )
+                {
+                    ?>
+                    <li>
+                        <a href="<?php echo $item['nombre_pagina']?>">
+                        	<i class="<?php echo $item['logo']?>"></i>
+                        	<?php echo $item['etiqueta']?>
+                       	</a>
+                    </li> 
+                    <?php                  
+                }
+            }
+        ?>             
+    </ul>       
+</nav>

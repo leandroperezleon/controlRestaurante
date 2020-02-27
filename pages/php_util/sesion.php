@@ -5,8 +5,8 @@ function mValidarSesion()
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false)
     {
         echo "Inicia Sesion para acceder a este contenido.<br>";
-        echo "<br><a href='../../index.html'>Login</a>";
-        header(SERVIDOR.'index.html'); //redirige a la página de login si el usuario quiere ingresar sin iniciar sesion
+        echo "<a href='../../index.html'>Inicio Sesion</a>";
+        header(SERVIDOR.'index.html'); // dirige a la página login cuando el usuario quiere ingresar sin iniciar sesion
         exit;
     }
 }/*mValidarSesion*/
@@ -17,8 +17,9 @@ function mValidarTimeOut()
     if($now > $_SESSION['expire'])
     {
         session_destroy();
-        echo "Tu sesion a expirado, <a href='../../index.html'>Inicia Sesion</a>";
-        header(SERVIDOR.'index.html');//redirige a la página de login, modifica la url a tu conveniencia
+        echo "Tu sesion a expirado. <br>";
+        echo "<a href='../../index.html'>Inicio Sesion</a>";
+        header(SERVIDOR.'index.html');// dirige a la página de login
         exit;
     }
 }/*mValidarTimeOut*/
